@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 import cookieparser from "cookie-parser";
 import messageRoutes from "./routes/message.router.js"
 import {app,server} from "./lib/socket.js";
+import cors from "cors";
 
 dotenv.config(); 
 
@@ -12,7 +13,10 @@ const PORT = process.env.PORT
 
 app.use(cookieparser());
 app.use(express.json());
-
+app.use(cors({
+    origin: "http://localhost:5173",
+    credentials: true
+}));
 
 app.use("/api/auth",authRoutes);
 app.use("/api/messages",messageRoutes);

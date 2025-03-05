@@ -27,7 +27,7 @@ const getMessages = async (req,res) => {
             return res.status(401).json({ error: "Unauthorized" });
         }
     
-        const chat = await Message.findOne({
+        const chat = await Message.find({
             participants: { $all: [loggedInUserId, userInChatId] }
         }).populate("messages"); // Populate the messages array
     
@@ -77,7 +77,7 @@ res.status(201).json(messageGenerated)
     }
 }
 
-
+// export the functions
 export {getUsers};
 export{getMessages};
 export{sendMessages};

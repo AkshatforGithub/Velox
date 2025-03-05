@@ -1,7 +1,7 @@
 import {create} from 'zustand';
 import { instance } from '../lib/axios';
 
-export const useAuth = create((set) => ({
+ const useAuth = create((set) => ({
     authUser: null,
     isCheckingAuth: true,
     isSigningUp: false,
@@ -23,3 +23,5 @@ export const useAuth = create((set) => ({
         }
     }
 }));
+
+export default useAuth; 
