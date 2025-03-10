@@ -8,6 +8,7 @@ import SettingPage from './pages/SettingPage';
 import ProfilePage from './pages/ProfilePage';
 import useAuth from './store/useAuth';
 import { ShieldEllipsis } from "lucide-react";
+import { Toaster } from 'react-hot-toast';
 
 
 
@@ -47,6 +48,8 @@ const App = () => {
         <Route path="/profile" element={authUser ?<ProfilePage/> :<Navigate to ="/login"/>} />
       </Routes>
 
+      <Toaster></Toaster>
+    
     </div>
   )
 }

@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { motion } from "framer-motion";
 import { cn } from "../lib/utils.js";
-// import {useAuth} from "../store/useAuth.js";
+import useAuth from '../store/useAuth.js';
+import { LoaderCircle } from 'lucide-react';
 
 
 
 const SignupPage = () => {
+
   // Password visibility state
   const [showPassword, setShowPassword] = useState(false);
 
@@ -16,8 +18,8 @@ const SignupPage = () => {
     password: '',
   });
 
-  // If you have a useAuth hook, uncomment this
-  // const isSigningUp = useAuth((state) => state.isSigningUp);
+
+ const{isSigningUp,signup} = useAuth(); 
   
   // Handle form input changes
   const handleChange = (e) => {
@@ -28,11 +30,24 @@ const SignupPage = () => {
     });
   };
 
+  const validateForm = () => {
+    if (!formData.fullName.trim()) return toast.error("Full name is required");
+    if (!formData.email.trim()) return toast.error("Email is required");
+    if (!formData.password.trim()) return toast.error("Password is required");
+    if(formData.password.length < 6) return toast.error("Password must be at least 6 characters long");
+    if(!/s+@s+.s+/.test(formData.email)) return toast.error("Invalid email address");
+    if(!/^(?=.*[a-z])(?=.*[A-Z])(?=.*d)(?=.*[@$!%*?&])[A-Za-zdd@$!%*?&]{8,}$/.test(formData.password)) return toast.error("Password must contain at least one uppercase letter, one lowercase letter, one number and one special character");
+    
+    return true;
+  }
+
   // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Add your signup logic here
-    console.log('Form submitted:', formData);
+    const success = validateForm();
+    if (success==true) {
+      signup(formData);
+    }
   };
 
   // Toggle password visibility
@@ -88,9 +103,11 @@ const SignupPage = () => {
                 type={showPassword ? "text" : "password"}
                 name="password"
                 value={formData.password}
-                onChange={handleChange}
+                // placeholder='........'
+                onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                 className="w-full p-2 rounded bg-slate-800 text-white border border-slate-700"
                 required
+                
               />
               <button
                 type="button"
@@ -100,15 +117,20 @@ const SignupPage = () => {
                 {showPassword ? "Hide" : "Show"}
               </button>
             </div>
-          </div>
-          
+          </div>   
           <button
             type="submit"
-            className="w-full p-2 bg-cyan-500 text-white rounded hover:bg-cyan-600 transition"
-          >
-            Sign Up
+            className="w-full p-2 bg-cyan-500 text-white rounded hover:bg-cyan-600 transition" disabled={isSigningUp} >
+              {isSigningUp ? <> <LoaderCircle /> Loading....</>  : 'Create an Account'}
+            {/* Create an Account */}
           </button>
         </form>
+        <div className='text-center'>
+          <p className=" mt-4">
+          Already have an account? {" "}
+          <a href="/login" className="text-cyan-500 hover:underline ">Login</a>
+          </p>
+        </div>
       </div>
     </LampContainer>
   );

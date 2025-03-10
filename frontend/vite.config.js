@@ -18,6 +18,7 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import tailwindcss from '@tailwindcss/vite';
+import path from "path";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -27,6 +28,9 @@ export default defineConfig({
       config: {
         content: ["./src/**/*.{js,jsx,ts,tsx}"],
         darkMode: "class",
+        alias: {
+          "@": path.resolve(__dirname, "src"), // Adjust based on your folder structure
+        },
         theme: {
           extend: {
             boxShadow: {
