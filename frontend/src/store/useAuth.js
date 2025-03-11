@@ -6,14 +6,13 @@ import toast from 'react-hot-toast';
     authUser: null,
     isCheckingAuth: true,
     isSigningUp: false, 
-    isLoggingIng: false,
+    isLoggingIn: false,
     isUpdatingProfile: false,
 
 // authenticate the user using already made check funtion in the backend
     checkAuth: async () => { 
         try {
             const res = await instance.get("/auth/check");
-
             set({authUser: res.data});
 
 // if the user is not found meaning there is no auth user meaning set the checking to false meaning user does not exist 
@@ -33,7 +32,7 @@ import toast from 'react-hot-toast';
             set({authUser: res.data});
             toast.success("Account created successfully");
         } catch (error) {
-            toast.error(error.response.data.message);
+            toast.error(error.response ?.data ?.message || "Signup failed. Please try again");
         }finally{
             set({isSigningUp: false});
         }
