@@ -1,10 +1,19 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import useAuth from "../store/useAuth.js";
-import { LogOut , Settings, User } from "lucide-react";
+import { LogOut, Settings, User } from "lucide-react";
 import image from "../assets/logo.png";
 
 const Navbar = () => {
   const { logout, authUser } = useAuth();
+  const location = useLocation();
+
+  // Define the paths where the navbar should be hidden
+  const hideNavbarPaths = ["/signup"];
+
+  // If the current path is in hideNavbarPaths, don't render the navbar
+  if (hideNavbarPaths.includes(location.pathname)) {
+    return null;
+  }
 
   return (
     <header
@@ -23,20 +32,14 @@ const Navbar = () => {
           </div>
 
           <div className="flex items-center gap-2">
-            <Link
-              to={"/settings"}
-              className={`
-              btn btn-sm gap-2 transition-colors
-              
-              `}
-            >
+            <Link to={"/settings"} className="btn btn-sm gap-2 transition-colors">
               <Settings className="w-4 h-4" />
               <span className="hidden sm:inline">Settings</span>
             </Link>
 
             {authUser && (
               <>
-                <Link to={"/profile"} className={`btn btn-sm gap-2`}>
+                <Link to={"/profile"} className="btn btn-sm gap-2">
                   <User className="size-5" />
                   <span className="hidden sm:inline">Profile</span>
                 </Link>
@@ -53,6 +56,5 @@ const Navbar = () => {
     </header>
   );
 };
+
 export default Navbar;
-
-

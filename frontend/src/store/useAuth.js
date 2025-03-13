@@ -42,7 +42,7 @@ import toast from 'react-hot-toast';
 // logout function to logout the user
     logout: async () => {
         try {
-         await instance.get("/auth/logout");
+         await instance.post("/auth/logout");
           set({ authUser: null });
           toast.success("Logged out successfully");
         } catch (error) {

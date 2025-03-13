@@ -26,6 +26,32 @@ export const LampContainer = ({ children, className }) => {
     </div>
   );
 };
+// export const LampContainer = ({ children, className }) => {
+//   return (
+//     <div className={cn("relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-slate-950 w-full rounded-md z-0", className)}>
+//       <div className="relative flex w-full flex-1 scale-y-125 items-center justify-center isolate z-0">
+//         <motion.div
+//           initial={{ opacity: 0.5, width: "15rem" }}
+//           animate={{ opacity: 1, width: "30rem" }}
+//           transition={{ delay: 0.3, duration: 0.8, ease: "easeInOut" }}
+//           style={{
+//             backgroundImage: `conic-gradient(from 180deg at 50% 50%, cyan, transparent)`,
+//             position: "absolute",
+//             right: "50%",
+//             height: "14rem",
+//             width: "30rem",
+//             opacity: 0.6,
+//           }}
+//           className="absolute"
+//         />
+//       </div>
+//       <div className="relative z-20 flex flex-col items-center px-5 -translate-y-40">
+//         {children}
+//       </div>
+//     </div>
+//   );
+// };
+
 
 const SignupPage = () => {
   const [showPassword, setShowPassword] = useState(false);
