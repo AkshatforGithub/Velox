@@ -8,6 +8,10 @@ import bcrypt from "bcryptjs"
 export const signup = async(req,res) => {
     const {fullname,email,password} = req.body
     try {
+        if (!fullname || !email || !password) {
+            return res.status(400).json({ message: "All fields are required" });
+          }
+      
         if(password.length < 6){
             return res.status(400).json({message :"You are bigger than 6 but it is not good here:shorten your pass "});
         }
@@ -128,9 +132,10 @@ export const UpdateProfile = async(req,res) =>{
 
 export const checkAuth = async (req, res) => {
     try {
-        res.status(200).json(req.User);    
+        res.status(200).json(req.user);    
     } catch (error) {
         console.log("error in checkAuth:", error.message);
         res.status(500).json({ error: "Internal server error" });
     }
+
 };

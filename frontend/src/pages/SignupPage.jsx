@@ -1,5 +1,4 @@
 
-
 import React, { useState } from 'react';
 import { motion } from "framer-motion";
 import { cn } from "../lib/utils.js";
@@ -30,7 +29,7 @@ export const LampContainer = ({ children, className }) => {
 
 const SignupPage = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const [formData, setFormData] = useState({ fullName: '', email: '', password: '' });
+  const [formData, setFormData] = useState({ fullname: '', email: '', password: '' });
 
   const { isSigningUp, signup } = useAuth();
 
@@ -39,7 +38,7 @@ const SignupPage = () => {
   };
 
   const validateForm = () => {
-    if (!formData.fullName.trim()) return toast.error("Full name is required");
+    if (!formData.fullname.trim()) return toast.error("Full name is required");
     if (!formData.email.trim()) return toast.error("Email is required");
     if (!formData.password.trim()) return toast.error("Password is required");
     if (formData.password.length < 6) return toast.error("Password must be at least 6 characters long");
@@ -51,7 +50,8 @@ const SignupPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (validateForm()) signup(formData);
+    const success = validateForm();
+    if(success===true) signup(formData);
   };
 
   return (
@@ -71,8 +71,8 @@ const SignupPage = () => {
             <label className="block text-slate-300 mb-1">Full Name</label>
             <input
               type="text"
-              name="fullName"
-              value={formData.fullName}
+              name="fullname"
+              value={formData.fullname}
               onChange={handleChange}
               className="w-full p-2 rounded bg-slate-800 text-white border border-slate-700"
               required

@@ -7,14 +7,15 @@ import User from "../models/user.model.js";
 
     // firstly check for the jwt token meaning check if the user is logged in or not
 
-    const token =  res.cookies.jwt
+    const token =  req.cookies.jwt
     if(!token){
         return res.status(401).json({message:"Unauthorized access"})
     }
 
     // if it is present then we have to decode the user id from the token as token is difficult to understand on its own
 
-    const decoded = jwt.verify(token,process.env.JWT_SECRET)
+    const decoded = jwt.verify(token,process.env.JWT_TOKEN);
+
     if(!decoded){
         return res.status(401).json({message:"Token is invalid"})
     }
@@ -28,9 +29,8 @@ import User from "../models/user.model.js";
 
     // call the next funtion in line which is in this case is update profile 
 
-    next()
+    next();
 }
-
 
     catch (error) {
         console.log("error in protectRoute middleware",error.message);
