@@ -7,10 +7,9 @@ const Navbar = () => {
   const { logout, authUser } = useAuth();
   const location = useLocation();
 
-  // Define the paths where the navbar should be hidden
+
   const hideNavbarPaths = ["/signup"];
 
-  // If the current path is in hideNavbarPaths, don't render the navbar
   if (hideNavbarPaths.includes(location.pathname)) {
     return null;
   }

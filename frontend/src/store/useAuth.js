@@ -1,6 +1,8 @@
 import {create} from 'zustand';
 import { instance } from '../lib/axios.js';
 import toast from 'react-hot-toast';
+// import { UpdateProfile } from '../../../backend/src/controllers/auth.controller.js';
+ 
 
 
  const useAuth = create((set) => ({
@@ -64,6 +66,22 @@ import toast from 'react-hot-toast';
           set({ isLoggingIn: false });
         }
       },
+
+// update profile function to update the profile of the user
+ UpdateProfile: async (data) => {
+    set({ isUpdatingProfile: true });
+    try {
+      const res = await instance.put("/auth/profile", data);
+      set({ authUser: res.data });
+      toast.success("Profile updated successfully");
+    } catch (error) {
+      console.log("error in update profile:", error);
+      toast.error(error.response.data.message);
+    } finally {
+      set({ isUpdatingProfile: false });
+    }
+ },
+
 }));
 
 export default useAuth; 

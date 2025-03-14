@@ -83,8 +83,6 @@ export const login = async(req,res) => {
         console.log("error in login controller",error.message);
         res.status(500).json({message:"Its Our fault "});
     }
-
-    res.send("login route");
 };
 
 
@@ -94,11 +92,13 @@ export const logout = async(req,res) => {
     // for logout we will just remove the cookies
 
     try {
-        res.cookie("jwt" , "" ,{maxage:0})
+        res.cookie("jwt" , "" ,{maxAge:0})
         return res.status(200).json({message:"Logged Out Succesfully"})
     } catch (error) {
         console.log("error in logout controller",error.message);
-        res.status(500).json({message:"Its Our fault "});
+        if(!res.headersSent){
+            res.status(500).json({message:"Its Our fault "});
+        }
     }
 };
 
