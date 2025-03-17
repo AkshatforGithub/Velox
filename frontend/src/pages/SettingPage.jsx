@@ -1,11 +1,12 @@
-import React from 'react'
+import React from 'react';
+import {THEMES} from '../constants';
+import {useThemeStore} from '../store/useThemeStore';
 
-import { THEMES } from "../constants";
-import { useThemeStore } from '../store/useThemeStore';
-import { Send } from "lucide-react";
 
-const SettingsPage = () => {
-  <div className="h-screen container mx-auto px-4 pt-20 max-w-5xl">
+const SettingPage = () => {
+  const {theme, setTheme} = useThemeStore();
+  return (
+    <div className="h-screen container mx-auto px-4 pt-20 max-w-5xl">
     <div className="space-y-6">
       <div className="flex flex-col gap-1">
       <h2 className="text-lg font-semibold">Theme</h2>
@@ -17,7 +18,7 @@ const SettingsPage = () => {
               key={t}
               className={`
                 group flex flex-col items-center gap-1.5 p-2 rounded-lg transition-colors
-                ${t === data-theme ? "bg-base-200" : "hover:bg-base-200/50"}
+                ${theme===t ? "bg-base-200" : "hover:bg-base-200/50"}
               `}
               onClick={() => setTheme(t)}
             >
@@ -37,9 +38,12 @@ const SettingsPage = () => {
       </div>
     </div>
   </div>
+  )
 }
+
+export default SettingPage;
 
 
  
 
-export default SettingsPage;
+

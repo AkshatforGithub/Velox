@@ -13,9 +13,10 @@ import { useThemeStore } from './store/useThemeStore';
 
 
 
+
 const App = () => {
   const{checkAuth,authUser,isCheckingAuth} = useAuth();
-  const theme =  useThemeStore();
+ const {theme} = useThemeStore();
 
   useEffect(() => {
     checkAuth();
@@ -38,7 +39,7 @@ const App = () => {
   }
   
   return (
-    <div data-theme = {theme} >
+    <div data-theme = {theme}>
       
       <Navbar/>
 {/* in all we are checking if the user is authenticated or not so if he is it will show to content else will ask to login */}
