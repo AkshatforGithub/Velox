@@ -12,6 +12,7 @@ import toast from 'react-hot-toast';
     isSigningUp: false, 
     isLoggingIn: false,
     isUpdatingProfile: false,
+    onlineUsers: [],
 
 // authenticate the user using already made check funtion in the backend
     checkAuth: async () => { 

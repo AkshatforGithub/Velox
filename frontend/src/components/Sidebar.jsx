@@ -4,6 +4,7 @@ import SidebarSkeleton from './skeletons/SidebarSkeleton';
 import { useChatStore } from '../store/useChatStore';
 import { Users } from 'lucide-react';
 import image from '../assets/avatar.png';
+import useAuth from '../store/useAuth';
 
 
 
@@ -11,7 +12,7 @@ import image from '../assets/avatar.png';
 const Sidebar = () => {
     const{getUsers, users, isUserLoading, setSelectedUser} = useChatStore();
 
-    const onlineUsers = [];
+    const { onlineUsers } = useAuth();
     
     useEffect(() => {getUsers()}, [getUsers])
 
