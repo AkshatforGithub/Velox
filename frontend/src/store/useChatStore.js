@@ -8,7 +8,7 @@ export const useChatStore = create((set,get) => ({
     users:[],
     selectedUser: null,
     isUserLoading : false,
-    isMessageLoading : false,
+    isMessagesLoading : false,
 
     getUsers: async () => {
         set({isUserLoading: true})
@@ -22,15 +22,19 @@ export const useChatStore = create((set,get) => ({
     },
 
     getMessages: async (userId) => {
-        set({isMessageLoading: true})
+        set({ isMessagesLoading: true });
+    
         try {
-            const res = await instance.get(`/messages/${userId}`)
-            set({messages: res.data})
+            const res = await instance.get(`/messages/${userId}`);
+            set({ messages: Array.isArray(res.data) ? res.data : [] }); // ✅ Ensure it's always an array
         } catch (error) {
-            toast.error("Failed to fetch messages")
+            toast.error("Failed to fetch messages");
+            set({ messages: [] }); // ✅ Reset messages to an empty array on failure
+        } finally {
+            set({ isMessagesLoading: false }); // ✅ Ensures state is always updated
         }
-        set({isMessageLoading: false})
     },
+    
 
     sendMessage: async (messageData) => {
         const{selectedUser,messages} = get();
