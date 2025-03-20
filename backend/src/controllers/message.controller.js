@@ -47,8 +47,8 @@ const getMessages = async (req,res) => {
 const sendMessages = async (req,res) => {
     try {
         const{text,image} = req.body;
-        const{id:recieverId} = req.params;
-        const senderId = req._id;
+        const{id:receiverId} = req.params;
+        const senderId = req.user._id;
 
 // now check if the user is sending the image or not 
 let imageUrl;
@@ -58,9 +58,9 @@ if(image){
     imageUrl = uploadResponse.secure_url;   
 }
 
-const messageGenerated = messageGenerated({
+const messageGenerated = new Message({
     senderId,
-    recieverId,
+    receiverId,
     text,
     image:imageUrl
 });
