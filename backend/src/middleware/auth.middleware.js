@@ -34,7 +34,7 @@ import User from "../models/user.model.js";
 
     catch (error) {
         console.log("error in protectRoute middleware",error.message);
-        res.status(500).json({message:"Its Our fault "});        
+        res.status(500).json({message:"Its Our fault"});        
     }
 }
 export { protectRoute };

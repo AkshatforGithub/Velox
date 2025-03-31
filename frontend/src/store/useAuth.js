@@ -124,6 +124,7 @@ const baseURL = "http://localhost:5071"
   set({ socket: socket });
 
   // listen for the event when the user will be online
+
   socket.on("gettingOnlineUsers", (UserIds) => {
     // set the online users in the state
     set({ onlineUsers: UserIds });
