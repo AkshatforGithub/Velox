@@ -10,11 +10,14 @@ import { formatTime } from '../lib/moreutils';
 
 
 const ChatContainer = () => {
-const{messages,getMessages,isMessagesLoading,selectedUser} = useChatStore();
+const{messages,getMessages,isMessagesLoading,selectedUser,subscribeToUser,unsubscribeToUser} = useChatStore();
 const {authUser} = useAuth();
 
 useEffect(() => {
-  getMessages(selectedUser._id)},[selectedUser._id,getMessages])
+  getMessages(selectedUser._id);
+  subscribeToUser();
+  return () =>unsubscribeToUser();
+  },[selectedUser._id,getMessages])
 
  if(isMessagesLoading) return(
   <div className='flex-1 flex flex-col overflow-auto'>

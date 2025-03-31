@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import toast from "react-hot-toast";
 import {instance} from "../lib/axios"
+import useAuth from "./useAuth";
 
 
 export const useChatStore = create((set,get) => ({
@@ -46,6 +47,33 @@ export const useChatStore = create((set,get) => ({
         }
     },
 
+
+    // subscribing the messages or sockets bhida rahe hai ek dsure users se after login
+    subscribeToUser: async () => {
+
+        // get the selected user from the store
+        const{selectedUser} =get();
+
+        // if there is no selected user then return 
+        if(!selectedUser) return;
+
+        // if the user is present then get the socket from the auth store
+
+        const socket = useAuth.getState().socket;
+
+        // now the socket is connected then we can emit the event to the user
+        socket.on("newMessage", (message) => {
+            set({messages: [...get().messages,message]});
+        })
+    },
+
+
+    // this will unsubscribe the user from the socket when the user is not selected or the user is logged out
+    // this will be called when the user is logged out or the user is not selected
+    unsubscribeToUser: () => {
+        const socket = useAuth.getState().socket;
+        socket.off("newMessage");
+    },
 
     setSelectedUser: (user) => set({selectedUser: user}),
   }));
