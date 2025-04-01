@@ -12,16 +12,20 @@ const io = new Server(server, {
 });
 
 
-const userOnline = () => {
-        
-};
+// recieve ths socket id when we try to send the message to the user
+// this will be used in the message router to send the message to the user
+export function getReceiverSocket(UserId) {
+    return userOnline[UserId] ;
+}
+
+const userOnline = {};
 
 io.on('connection', (socket) => {
     console.log('a user connected', socket.id);
 
     // get the user id
     // this is the query parameter that we are sending from the frontend
-    const UserId = socket.handshake.query.UserIdserId;
+    const UserId = socket.handshake.query.UserId;
 
     // if the user  exists then
     if(UserId) userOnline[UserId] = socket.id;

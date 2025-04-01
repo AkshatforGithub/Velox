@@ -22,6 +22,7 @@ export const useChatStore = create((set,get) => ({
         set({isUserLoading: false})
     },
 
+
     getMessages: async (userId) => {
         set({ isMessagesLoading: true });
     
@@ -47,7 +48,7 @@ export const useChatStore = create((set,get) => ({
         }
     },
 
-
+    
     // subscribing the messages or sockets bhida rahe hai ek dsure users se after login
     subscribeToUser: async () => {
 
@@ -63,10 +64,14 @@ export const useChatStore = create((set,get) => ({
 
         // now the socket is connected then we can emit the event to the user
         socket.on("newMessage", (message) => {
+
+            // if the message is not sent to the selected user then can just return out from the function to avoid mixing the chats
+            if(message.senderId !== selectedUser._id) return;
+
+            // if the messsage is sent to the selected user then add the messages to the set
             set({messages: [...get().messages,message]});
         })
     },
-
 
     // this will unsubscribe the user from the socket when the user is not selected or the user is logged out
     // this will be called when the user is logged out or the user is not selected

@@ -1,6 +1,7 @@
 import User from "../models/user.model.js";
 import  Message from "../models/message.model.js"
 import cloudinary from "../lib/cloudinary.js";
+import { io,getReceiverSocket} from "../lib/socket.js";
 
 // function for getting the users on the left side
 const getUsers = async (req,res) => {
@@ -68,6 +69,12 @@ const messageGenerated = new Message({
 // now just save the message in the database ;
 
 await messageGenerated.save();
+
+const getReceiverSocketId = getReceiverSocket(receiverId);
+if(getReceiverSocketId){
+    io.to(getReceiverSocketId).emit("newMessage",messageGenerated);
+}
+
 res.status(201).json(messageGenerated)
 
     } catch (error) {
