@@ -48,7 +48,6 @@ export const useChatStore = create((set,get) => ({
         }
     },
 
-    
     // subscribing the messages or sockets bhida rahe hai ek dsure users se after login
     subscribeToUser: async () => {
 
