@@ -24,28 +24,28 @@ const Navbar = () => {
           <div className="flex items-center gap-2">
             <Link to="/" className="flex items-center gap-2.5 hover:opacity-80 transition-all">
               <div className=" rounded-lg flex items-center justify-center">
-                <img src={image} alt="logo" className="w-12 h-12" />
+                <img src={image} alt="logo" className="w-18 h-15" />
               </div>
-              <h1 className="text-lg font-bold">Velox</h1>
+              <h1 className="w-18  text-lg font-bold">Velox</h1>
             </Link>
           </div>
 
           <div className="flex items-center gap-2">
             <Link to={"/setting"} className="btn btn-sm gap-2 transition-colors">
-              <Settings className="w-4 h-4" />
+              <Settings className="w-6 h-6" />
               <span className="hidden sm:inline">Settings</span>
             </Link>
 
             {authUser && (
               <>
                 <Link to={"/profile"} className="btn btn-sm gap-2">
-                  <User className="size-5" />
-                  <span className="hidden sm:inline">Profile</span>
+                  <User className="size-7" />
+                  <span className=" hidden sm:inline">Profile</span>
                 </Link>
 
                 <button className="flex gap-2 items-center" onClick={logout}>
-                  <LogOut className="size-5" />
-                  <span className="hidden sm:inline">Logout</span>
+                  <LogOut className="size-8" />
+                  <span className="cursor-pointer hidden sm:inline">Logout</span>
                 </button>
               </>
             )}
